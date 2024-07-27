@@ -1,3 +1,4 @@
+// backend/models/User.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -6,9 +7,12 @@ const UserSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ['Patient', 'Doctor', 'Admin'], required: true },
-  // Additional fields for patients
-  medicalHistory: { type: Array, default: [] },
-  medications: { type: Array, default: [] }
+  epilepsyDetails: {
+    diagnosisDate: { type: Date },
+    medication: { type: String },
+    lastSeizureDate: { type: Date },
+    notes: { type: String }
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);

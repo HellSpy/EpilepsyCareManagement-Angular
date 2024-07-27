@@ -1,9 +1,10 @@
-// server.js
+// backend/server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
+const patientRoutes = require('./routes/patients');
 
 const app = express();
 
@@ -20,6 +21,7 @@ mongoose.connect('mongodb://localhost:27017/epilepsy-health-system', {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api', patientRoutes);
 
 // Basic route
 app.get('/', (req, res) => res.send('Hello World'));
