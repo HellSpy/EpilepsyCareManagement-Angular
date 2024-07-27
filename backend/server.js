@@ -1,4 +1,3 @@
-// backend/server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -13,7 +12,10 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // MongoDB connection
-mongoose.connect('mongodb://127.0.0.1:27017/epilepsy_health_system')
+mongoose.connect('mongodb://127.0.0.1:27017/epilepsy_health_system', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
   .then(() => console.log('MongoDB connected'))
   .catch(err => {
     console.error('MongoDB connection error:', err);
@@ -22,7 +24,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/epilepsy_health_system')
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api', patientRoutes);
+app.use('/api', patientRoutes); // This should work as intended
 
 // Basic route
 app.get('/', (req, res) => res.send('Hello World'));

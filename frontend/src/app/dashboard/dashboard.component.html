@@ -1,11 +1,38 @@
-<!-- frontend/src/app/dashboard/dashboard.component.html -->
-<h2>Epilepsy Patient Dashboard</h2>
-<ul>
-  <li *ngFor="let patient of patients">
-    <strong>{{ patient.name }}</strong>
-    <div>Diagnosis Date: {{ patient.epilepsyDetails.diagnosisDate | date }}</div>
-    <div>Medication: {{ patient.epilepsyDetails.medication }}</div>
-    <div>Last Seizure Date: {{ patient.epilepsyDetails.lastSeizureDate | date }}</div>
-    <div>Notes: {{ patient.epilepsyDetails.notes }}</div>
-  </li>
-</ul>
+<!-- src/app/dashboard/dashboard.component.html -->
+<div class="dashboard-container">
+  <mat-toolbar color="primary">
+    <span>Epilepsy Healthcare Management System</span>
+  </mat-toolbar>
+  <div class="search-bar">
+    <mat-form-field appearance="fill">
+      <mat-label>Search Patients</mat-label>
+      <input matInput (input)="applyFilter($event)" placeholder="Search by name">
+    </mat-form-field>
+  </div>
+  <div class="content">
+    <div class="patient-list">
+      <h3>Epilepsy Patients</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let patient of filteredPatients" (click)="selectPatient(patient._id)">
+          <div mat-line>{{ patient.name }}</div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="patient-details" *ngIf="selectedPatient">
+      <h3>{{ selectedPatient.name }}</h3>
+      <mat-card>
+        <mat-card-content>
+          <p><strong>Email:</strong> {{ selectedPatient.email }}</p>
+          <p><strong>Diagnosis Date:</strong> {{ selectedPatient.epilepsyDetails.diagnosisDate | date }}</p>
+          <p><strong>Medication:</strong> {{ selectedPatient.epilepsyDetails.medication }}</p>
+          <p><strong>Last Seizure Date:</strong> {{ selectedPatient.epilepsyDetails.lastSeizureDate | date }}</p>
+          <p><strong>Notes:</strong> {{ selectedPatient.epilepsyDetails.notes }}</p>
+          <p><strong>Seizure Frequency:</strong> {{ selectedPatient.epilepsyDetails.seizureFrequency }}</p>
+          <p><strong>Family History:</strong> {{ selectedPatient.epilepsyDetails.familyHistory }}</p>
+          <p><strong>Allergies:</strong> {{ selectedPatient.epilepsyDetails.allergies }}</p>
+          <p><strong>Comorbidities:</strong> {{ selectedPatient.epilepsyDetails.comorbidities }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
