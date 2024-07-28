@@ -1,12 +1,33 @@
-import { Component } from '@angular/core';
+// src/app/medication-management/medication-management.component.ts
+import { Component, OnInit } from '@angular/core';
+import { PatientService, Medication } from '../services/patient.service';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-medication-management',
   standalone: true,
-  imports: [],
+  selector: 'app-medication-management',
   templateUrl: './medication-management.component.html',
-  styleUrl: './medication-management.component.scss'
+  styleUrls: ['./medication-management.component.scss'],
+  imports: [CommonModule,RouterModule] // Import RouterModule here
 })
-export class MedicationManagementComponent {
+export class MedicationManagementComponent implements OnInit {
+  medications: Medication[] = [];
 
+  constructor(private patientService: PatientService) {}
+
+  ngOnInit(): void {
+    this.loadMedications();
+  }
+
+  loadMedications(): void {
+    this.patientService.getMedications().subscribe(
+      (data: Medication[]) => {
+        this.medications = data;
+      },
+      (error) => {
+        console.error('Error fetching medications:', error);
+      }
+    );
+  }
 }
