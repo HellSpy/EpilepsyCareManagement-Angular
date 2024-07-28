@@ -1,0 +1,88 @@
+<div class="dashboard-container">
+    <nav class="navbar is-primary">
+      <div class="navbar-brand">
+        <span class="navbar-item title is-3">Epilepsy Healthcare Management System</span>
+      </div>
+    </nav>
+    <div class="columns is-gapless is-fullheight">
+      <aside class="column is-2 is-fullheight is-primary">
+        <div class="menu">
+          <ul class="menu-list">
+            <li>
+              <a [routerLink]="['/dashboard']" routerLinkActive="is-active">Patients</a>
+            </li>
+            <li>
+              <a [routerLink]="['/seizure-logs']" routerLinkActive="is-active">Seizure Logs</a>
+            </li>
+            <li>
+              <a [routerLink]="['/medication-management']" routerLinkActive="is-active">Medication Management</a>
+            </li>
+            <li>
+              <a [routerLink]="['/reports-analytics']" routerLinkActive="is-active">Reports & Analytics</a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+      <div class="column is-paddingless">
+        <section class="section">
+          <h3 class="title is-4">Seizure Logs</h3>
+          <p>Here you can view and manage seizure logs for all patients.</p>
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Filter by Patient Name</label>
+                <div class="control">
+                  <input class="input" type="text" (input)="applyFilter($event)" placeholder="Enter patient name">
+                </div>
+              </div>
+            </div>
+          </div>
+          <table class="table is-fullwidth is-hoverable" *ngIf="filteredPatients.length > 0">
+            <thead>
+              <tr>
+                <th>Patient Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Date of Birth</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let patient of filteredPatients" (click)="selectPatient(patient)">
+                <td>{{ patient.name }}</td>
+                <td>{{ patient.age }}</td>
+                <td>{{ patient.gender }}</td>
+                <td>{{ patient.dateOfBirth | date }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="selectedPatient">
+            <h3 class="title is-4">Seizure Logs for {{ selectedPatient.name }}</h3>
+            <table class="table is-fullwidth is-hoverable">
+              <thead>
+                <tr>
+                  <th>Seizure Date</th>
+                  <th>Seizure Type</th>
+                  <th>Duration</th>
+                  <th>Triggers</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let log of selectedPatient.seizureLogs">
+                  <td>{{ log.date | date }}</td>
+                  <td>{{ log.type }}</td>
+                  <td>{{ log.duration }}</td>
+                  <td>{{ log.triggers }}</td>
+                  <td>
+                    <button class="button is-small is-info" (click)="editSeizureLog(log)">Edit</button>
+                    <button class="button is-small is-danger" (click)="deleteSeizureLog(log.id)">Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  

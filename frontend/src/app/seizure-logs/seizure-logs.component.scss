@@ -1,5 +1,3 @@
-/* src/app/dashboard/dashboard.component.scss */
-
 $primary-color: #000000;  // Black
 $secondary-color: #FFFFFF;  // White
 $background-color: #F8F9FA;  // Very Light Grey
@@ -34,17 +32,12 @@ html, body {
   .columns {
     margin: 0;
     padding: 0;
-    height: calc(100vh - 52px); /* Adjust for the height of the navbar */
-  }
-
-  .column {
-    overflow-y: auto;
   }
 
   .menu {
     background-color: #e2e2e2;
     color: $text-color;
-    height: 100%;
+    height: 100vh;
     padding: 20px;
 
     .menu-list {
@@ -52,17 +45,18 @@ html, body {
         background-color: $primary-color;
         color: $highlight-color;
       }
+
       li {
-        margin-bottom: 15px;
+        margin-bottom: 15px; // Add vertical spacing between menu items
       }
     }
 
     .input {
-      margin-bottom: 20px;
+      margin-bottom: 10px; // Reduced vertical spacing
     }
 
     .field {
-      margin-bottom: 20px;
+      margin-bottom: 10px; // Reduced vertical spacing
     }
 
     .label {
@@ -78,11 +72,14 @@ html, body {
   .section {
     background-color: $background-color;
     color: $text-color;
+    padding-top: 10px; // Reduced vertical spacing
+    padding-bottom: 10px; // Reduced vertical spacing
   }
 
   .table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 10px; // Reduced vertical spacing
 
     th, td {
       border: 1px solid $primary-color;
@@ -102,7 +99,6 @@ html, body {
     tr:hover {
       background-color: $highlight-color;
       color: $primary-color;
-      cursor: pointer; /* Add cursor pointer for hover effect */
     }
   }
 
@@ -122,8 +118,6 @@ html, body {
     right: 10px;
     font-size: 1.5rem;
     color: $primary-color;
-    cursor: pointer; /* Add cursor pointer for close button */
-    z-index: 20;
   }
 
   .icon {

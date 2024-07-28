@@ -1,38 +1,243 @@
-<!-- src/app/dashboard/dashboard.component.html -->
 <div class="dashboard-container">
-  <mat-toolbar color="primary">
-    <span>Epilepsy Healthcare Management System</span>
-  </mat-toolbar>
-  <div class="search-bar">
-    <mat-form-field appearance="fill">
-      <mat-label>Search Patients</mat-label>
-      <input matInput (input)="applyFilter($event)" placeholder="Search by name">
-    </mat-form-field>
-  </div>
-  <div class="content">
-    <div class="patient-list">
-      <h3>Epilepsy Patients</h3>
-      <mat-list>
-        <mat-list-item *ngFor="let patient of filteredPatients" (click)="selectPatient(patient._id)">
-          <div mat-line>{{ patient.name }}</div>
-        </mat-list-item>
-      </mat-list>
+  <nav class="navbar is-primary">
+    <div class="navbar-brand">
+      <span class="navbar-item title is-3">Epilepsy Healthcare Management System</span>
     </div>
-    <div class="patient-details" *ngIf="selectedPatient">
-      <h3>{{ selectedPatient.name }}</h3>
-      <mat-card>
-        <mat-card-content>
-          <p><strong>Email:</strong> {{ selectedPatient.email }}</p>
-          <p><strong>Diagnosis Date:</strong> {{ selectedPatient.epilepsyDetails.diagnosisDate | date }}</p>
-          <p><strong>Medication:</strong> {{ selectedPatient.epilepsyDetails.medication }}</p>
-          <p><strong>Last Seizure Date:</strong> {{ selectedPatient.epilepsyDetails.lastSeizureDate | date }}</p>
-          <p><strong>Notes:</strong> {{ selectedPatient.epilepsyDetails.notes }}</p>
-          <p><strong>Seizure Frequency:</strong> {{ selectedPatient.epilepsyDetails.seizureFrequency }}</p>
-          <p><strong>Family History:</strong> {{ selectedPatient.epilepsyDetails.familyHistory }}</p>
-          <p><strong>Allergies:</strong> {{ selectedPatient.epilepsyDetails.allergies }}</p>
-          <p><strong>Comorbidities:</strong> {{ selectedPatient.epilepsyDetails.comorbidities }}</p>
-        </mat-card-content>
-      </mat-card>
+  </nav>
+  <div class="columns is-gapless is-fullheight">
+    <aside class="column is-2 is-fullheight is-primary">
+      <div class="menu">
+        <ul class="menu-list">
+          <li>
+            <a [routerLink]="['/dashboard']" routerLinkActive="is-active">Patients</a>
+          </li>
+          <li>
+            <a [routerLink]="['/seizure-logs']" routerLinkActive="is-active">Seizure Logs</a>
+          </li>
+          <li>
+            <a [routerLink]="['/medication-management']" routerLinkActive="is-active">Medication Management</a>
+          </li>
+          <li>
+            <a [routerLink]="['/reports-analytics']" routerLinkActive="is-active">Reports & Analytics</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <div class="column is-paddingless">
+      <div class="columns is-gapless is-fullheight">
+        <div class="column" *ngIf="!selectedPatient">
+          <section class="section">
+            <h3 class="title is-4">Epilepsy Patients</h3>
+            <p>Click on a patient to reveal more medical data.</p>
+            <table class="table is-fullwidth is-hoverable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Age</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let patient of filteredPatients" (click)="selectPatient(patient._id)">
+                  <td>{{ patient.name }}</td>
+                  <td>{{ patient.email }}</td>
+                  <td>{{ patient.age }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+        <div class="column" *ngIf="selectedPatient">
+          <section class="section">
+            <div class="card">
+              <button class="button is-light is-large close-button" (click)="deselectPatient()">
+                <span class="icon is-large">
+                  <i class="fas fa-times"></i>
+                </span>
+              </button>
+              <div class="card-content">
+                <h3 class="title is-4">{{ selectedPatient.name }}</h3>
+                <table class="table is-fullwidth">
+                  <tbody>
+                    <tr>
+                      <td><strong>Email:</strong></td>
+                      <td>{{ selectedPatient.email }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Age:</strong></td>
+                      <td>{{ selectedPatient.age }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Gender:</strong></td>
+                      <td>{{ selectedPatient.gender }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Date of Birth:</strong></td>
+                      <td>{{ selectedPatient.dateOfBirth | date }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Phone Number:</strong></td>
+                      <td>{{ selectedPatient.phoneNumber }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Address:</strong></td>
+                      <td>{{ selectedPatient.address }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Primary Care Physician:</strong></td>
+                      <td>{{ selectedPatient.primaryCarePhysician }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Emergency Contact:</strong></td>
+                      <td>{{ selectedPatient.emergencyContact.name }} ({{ selectedPatient.emergencyContact.relationship }}), {{ selectedPatient.emergencyContact.phone }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Known Allergies:</strong></td>
+                      <td>{{ selectedPatient.knownAllergies }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Previous Surgeries:</strong></td>
+                      <td>{{ selectedPatient.previousSurgeries }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Comorbidities:</strong></td>
+                      <td>{{ selectedPatient.comorbidities }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Diagnosis Date:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.diagnosisDate | date }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Medication:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.medication }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Medication Dosage:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.medicationDosage }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Medication Side Effects:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.medicationSideEffects }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Last Seizure Date:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.lastSeizureDate | date }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Seizure Type:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.seizureType }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Seizure Triggers:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.seizureTriggers }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Seizure Frequency:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.seizureFrequency }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Seizure Duration:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.seizureDuration }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Seizure Aura:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.seizureAura }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Response to Treatment:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.responseToTreatment }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Notes:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.notes }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Family History:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.familyHistory }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Allergies:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.allergies }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Comorbidities:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.comorbidities }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>VNS:</strong></td>
+                      <td>{{ selectedPatient.epilepsyDetails.VNS }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Dietary Habits:</strong></td>
+                      <td>{{ selectedPatient.lifestyle.dietaryHabits }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Exercise Routine:</strong></td>
+                      <td>{{ selectedPatient.lifestyle.exerciseRoutine }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Sleep Patterns:</strong></td>
+                      <td>{{ selectedPatient.lifestyle.sleepPatterns }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Smoking/Alcohol Use:</strong></td>
+                      <td>{{ selectedPatient.lifestyle.smokingAlcoholUse }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Support Groups:</strong></td>
+                      <td>{{ selectedPatient.supportResources.supportGroups }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Educational Materials:</strong></td>
+                      <td>{{ selectedPatient.supportResources.educationalMaterials }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Care Plan:</strong></td>
+                      <td>{{ selectedPatient.supportResources.carePlan }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
+    <aside class="column is-2 is-fullheight is-primary">
+      <div class="menu">
+        <div class="search-bar">
+          <input class="input" type="text" (input)="applyFilter($event)" placeholder="Search by name">
+        </div>
+        <ul class="menu-list">
+          <li>
+            <h3 class="title is-4">Filters</h3>
+          </li>
+          <li>
+            <div class="field">
+              <label class="label">Filter by Age</label>
+              <div class="control">
+                <input class="input" type="number" (input)="applyAgeFilter($event)">
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="field">
+              <label class="label">Filter by Medication</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select (change)="applyMedicationFilter($event)">
+                    <option value="">Select medication</option>
+                    <option *ngFor="let medication of medications" [value]="medication._id">
+                      {{ medication._id }} ({{ medication.count }})
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- Add other filter fields here -->
+        </ul>
+      </div>
+    </aside>
   </div>
 </div>
