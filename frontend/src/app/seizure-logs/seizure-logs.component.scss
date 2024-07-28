@@ -34,6 +34,14 @@ html, body {
     padding: 0;
   }
 
+  .adjustsection {
+    height: 100%;
+  }
+
+  .column {
+    background-color: #e2e2e2 !important;
+  }
+
   .menu {
     background-color: #e2e2e2;
     color: $text-color;
@@ -99,6 +107,7 @@ html, body {
     tr:hover {
       background-color: $highlight-color;
       color: $primary-color;
+      cursor: pointer;
     }
   }
 
@@ -118,6 +127,10 @@ html, body {
     right: 10px;
     font-size: 1.5rem;
     color: $primary-color;
+  }
+
+  .adjustbutton {
+    margin-right: 5px;
   }
 
   .icon {
