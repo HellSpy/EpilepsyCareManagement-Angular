@@ -1,23 +1,29 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// src/app/medication-management/medication-management.component.ts
+import { Component, OnInit } from '@angular/core';
+import { PatientService, Medication } from '../services/patient.service';
 
-import { MedicationManagementComponent } from './medication-management.component';
+@Component({
+  selector: 'app-medication-management',
+  templateUrl: './medication-management.component.html',
+  styleUrls: ['./medication-management.component.scss']
+})
+export class MedicationManagementComponent implements OnInit {
+  medications: Medication[] = [];
 
-describe('MedicationManagementComponent', () => {
-  let component: MedicationManagementComponent;
-  let fixture: ComponentFixture<MedicationManagementComponent>;
+  constructor(private patientService: PatientService) {}
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [MedicationManagementComponent]
-    })
-    .compileComponents();
+  ngOnInit(): void {
+    this.loadMedications();
+  }
 
-    fixture = TestBed.createComponent(MedicationManagementComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  loadMedications(): void {
+    this.patientService.getMedications().subscribe(
+      (data: Medication[]) => {
+        this.medications = data;
+      },
+      (error) => {
+        console.error('Error fetching medications:', error);
+      }
+    );
+  }
+}

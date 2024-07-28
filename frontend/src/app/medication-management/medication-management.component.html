@@ -1,1 +1,48 @@
-<p>medication-management works!</p>
+<!-- src/app/medication-management/medication-management.component.html -->
+<div class="dashboard-container">
+    <nav class="navbar is-primary">
+      <div class="navbar-brand">
+        <span class="navbar-item title is-3">Epilepsy Healthcare Management System</span>
+      </div>
+    </nav>
+    <div class="columns is-gapless is-fullheight">
+      <aside class="column is-2 is-fullheight is-primary">
+        <div class="menu">
+          <ul class="menu-list">
+            <li>
+              <a [routerLink]="['/dashboard']" routerLinkActive="is-active">Patients</a>
+            </li>
+            <li>
+              <a [routerLink]="['/seizure-logs']" routerLinkActive="is-active">Seizure Logs</a>
+            </li>
+            <li>
+              <a [routerLink]="['/medication-management']" routerLinkActive="is-active">Medication Management</a>
+            </li>
+            <li>
+              <a [routerLink]="['/reports-analytics']" routerLinkActive="is-active">Reports & Analytics</a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+      <div class="column is-paddingless">
+        <section class="section">
+          <h3 class="title is-4">Medication Management</h3>
+          <table class="table is-fullwidth is-hoverable">
+            <thead>
+              <tr>
+                <th>Medication</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let medication of medications">
+                <td>{{ medication._id }}</td>
+                <td>{{ medication.count }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+  </div>
+  
