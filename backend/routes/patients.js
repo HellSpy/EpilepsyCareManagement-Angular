@@ -6,7 +6,7 @@ const router = express.Router();
 // Get all patients with epilepsy
 router.get('/patients', async (req, res) => {
   try {
-    const patients = await User.find({ role: 'Patient' }, 'name email age gender epilepsyDetails');
+    const patients = await User.find({ role: 'Patient' }, 'name email age gender primaryCarePhysician epilepsyDetails');
     res.json(patients);
   } catch (error) {
     res.status(500).send('Server error');

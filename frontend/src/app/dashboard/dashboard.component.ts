@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   filteredPatients: Patient[] = [];
   selectedPatient: Patient | null = null;
   medications: Medication[] = [];
+  physicians: string[] = [];
 
   constructor(private patientService: PatientService) {
     console.log('DashboardComponent initialized');
@@ -31,6 +32,7 @@ export class DashboardComponent implements OnInit {
       console.log('Patients data received:', data);
       this.patients = data;
       this.filteredPatients = data;  // Initialize filteredPatients
+      this.physicians = this.extractPhysicians(data);
     });
 
     this.patientService.getMedications().subscribe((data: Medication[]) => {
@@ -105,6 +107,51 @@ export class DashboardComponent implements OnInit {
       });
     }
     console.log('Filtered patients:', this.filteredPatients);
+  }
+
+  applyGenderFilter(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const gender = selectElement.value.trim();
+    this.filteredPatients = this.patients.filter(patient =>
+      patient.gender?.toLowerCase() === gender.toLowerCase()
+    );
+  }
+
+  applyDiagnosisDateFilter(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const filterValue = input.value;
+    if (filterValue === '') {
+      this.filteredPatients = this.patients;
+    } else {
+      const filterDate = new Date(filterValue);
+      this.filteredPatients = this.patients.filter(patient => {
+        const diagnosisDate = new Date(patient.epilepsyDetails.diagnosisDate);
+        // Ensure date comparison ignores time components
+        return diagnosisDate.toDateString() === filterDate.toDateString();
+      });
+    }
+  }
+
+  applyPhysicianFilter(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const physician = selectElement.value.trim();
+    if (physician === '') {
+      this.filteredPatients = this.patients;
+    } else {
+      this.filteredPatients = this.patients.filter(patient =>
+        patient.primaryCarePhysician?.toLowerCase() === physician.toLowerCase()
+      );
+    }
+  }
+
+  private extractPhysicians(patients: Patient[]): string[] {
+    const physiciansSet = new Set<string>();
+    patients.forEach(patient => {
+      if (patient.primaryCarePhysician) {
+        physiciansSet.add(patient.primaryCarePhysician);
+      }
+    });
+    return Array.from(physiciansSet);
   }
 }
 

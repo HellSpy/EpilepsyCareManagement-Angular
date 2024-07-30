@@ -235,6 +235,44 @@
               </div>
             </div>
           </li>
+          <li>
+            <div class="field">
+              <label class="label">Filter by Gender</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select (change)="applyGenderFilter($event)">
+                    <option value="">Select gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="field">
+              <label class="label">Filter by Diagnosis Date</label>
+              <div class="control">
+                <input class="input" type="date" (change)="applyDiagnosisDateFilter($event)">
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="field">
+              <label class="label">Filter by Primary Care Physician</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select (change)="applyPhysicianFilter($event)">
+                    <option value="">Select physician</option>
+                    <option *ngFor="let physician of physicians" [value]="physician">
+                      {{ physician }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </li>
           <!-- Add other filter fields here -->
         </ul>
       </div>
