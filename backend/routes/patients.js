@@ -18,7 +18,7 @@ router.get('/patients/:id', async (req, res) => {
   try {
     console.log('Fetching patient with ID:', req.params.id);
 
-    // Use the `new` keyword to create an ObjectId
+    // Use the new keyword to create an ObjectId
     const patientId = new mongoose.Types.ObjectId(req.params.id);
     console.log('Converted ObjectId:', patientId);
 
@@ -52,5 +52,20 @@ router.get('/medications', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+const MedicationDetails = require('../models/MedicationDetails'); // THIS FETCHES MEDICATIONS FROM THE COLLECTION CALLED "MedicationDetails.js"
+
+router.get('/medications/:name', async (req, res) => {
+  try {
+    const medicationDetails = await MedicationDetails.findOne({ name: req.params.name });
+    if (!medicationDetails) {
+      return res.status(404).send('Medication not found');
+    }
+    res.json(medicationDetails);
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
+});
+
 
 module.exports = router;

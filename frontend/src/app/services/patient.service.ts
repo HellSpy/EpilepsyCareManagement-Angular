@@ -57,6 +57,17 @@ export interface Medication {
   count: number;
 }
 
+export interface MedicationDetails {
+  name: string;
+  description: string;
+  sideEffects: string;
+  dosageInstructions: string;
+  brandNames: string[];
+  interactions: string;
+  contraindications: string;
+  commonUses: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -80,5 +91,10 @@ export class PatientService {
   getMedications(): Observable<Medication[]> {
     console.log('getMedications called');
     return this.http.get<Medication[]>(`${this.apiUrl}/medications`);
+  }
+
+  getMedicationDetails(name: string): Observable<MedicationDetails> {
+    console.log('getMedicationDetails called with name:', name);
+    return this.http.get<MedicationDetails>(`${this.apiUrl}/medications/${name}`);
   }
 }

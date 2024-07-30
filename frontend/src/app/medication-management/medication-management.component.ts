@@ -1,6 +1,6 @@
 // src/app/medication-management/medication-management.component.ts
 import { Component, OnInit } from '@angular/core';
-import { PatientService, Medication } from '../services/patient.service';
+import { PatientService, Medication, MedicationDetails } from '../services/patient.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -9,10 +9,11 @@ import { CommonModule } from '@angular/common';
   selector: 'app-medication-management',
   templateUrl: './medication-management.component.html',
   styleUrls: ['./medication-management.component.scss'],
-  imports: [CommonModule,RouterModule] // Import RouterModule here
+  imports: [RouterModule, CommonModule]
 })
 export class MedicationManagementComponent implements OnInit {
   medications: Medication[] = [];
+  selectedMedication: MedicationDetails | null = null;
 
   constructor(private patientService: PatientService) {}
 
@@ -29,5 +30,20 @@ export class MedicationManagementComponent implements OnInit {
         console.error('Error fetching medications:', error);
       }
     );
+  }
+
+  selectMedication(name: string): void {
+    this.patientService.getMedicationDetails(name).subscribe(
+      (data: MedicationDetails) => {
+        this.selectedMedication = data;
+      },
+      (error) => {
+        console.error('Error fetching medication details:', error);
+      }
+    );
+  }
+
+  deselectMedication(): void {
+    this.selectedMedication = null;
   }
 }

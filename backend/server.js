@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const patientRoutes = require('./routes/patients');
-const seizureLogsRoutes = require('./routes/seizureLogs'); // Import the new routes
+const seizureLogsRoutes = require('./routes/seizureLogs');
 
 const app = express();
 
@@ -26,7 +26,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/epilepsy_health_system', {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', patientRoutes);
-app.use('/api', seizureLogsRoutes); // Add the new routes
+app.use('/api', seizureLogsRoutes);
 
 // Basic route
 app.get('/', (req, res) => res.send('Hello World'));
