@@ -1,19 +1,20 @@
-// src/app/medication-management/medication-management.component.ts
 import { Component, OnInit } from '@angular/core';
 import { PatientService, Medication, MedicationDetails } from '../services/patient.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'app-medication-management',
   templateUrl: './medication-management.component.html',
   styleUrls: ['./medication-management.component.scss'],
-  imports: [RouterModule, CommonModule]
+  imports: [RouterModule, CommonModule, FormsModule]
 })
 export class MedicationManagementComponent implements OnInit {
   medications: Medication[] = [];
   selectedMedication: MedicationDetails | null = null;
+  searchText: string = '';
 
   constructor(private patientService: PatientService) {}
 
@@ -29,6 +30,15 @@ export class MedicationManagementComponent implements OnInit {
       (error) => {
         console.error('Error fetching medications:', error);
       }
+    );
+  }
+
+  filteredMedications(): Medication[] {
+    if (!this.searchText) {
+      return this.medications;
+    }
+    return this.medications.filter(medication =>
+      medication._id.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 

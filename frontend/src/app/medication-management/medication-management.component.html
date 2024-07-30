@@ -27,22 +27,23 @@
         <div class="column is-paddingless">
             <section class="section">
                 <h3 class="title is-4">Medication Management</h3>
-                <table class="table is-fullwidth is-hoverable" *ngIf="!selectedMedication">
-                    <thead>
-                        <tr>
-                            <th>Medication</th>
-                            <th>Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let medication of medications" (click)="selectMedication(medication._id)">
-                            <td>{{ medication._id }}</td>
-                            <td>{{ medication.count }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-  
-                <div *ngIf="selectedMedication">
+
+                <!-- Search and Filter -->
+                <div class="field">
+                    <label class="label">Search Medications</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Search for a medication" [(ngModel)]="searchText">
+                    </div>
+                </div>
+
+                <!-- Announcements -->
+                <div class="box announcements">
+                    <h4 class="title is-5">Announcements</h4>
+                    <p><strong>Caution:</strong> Valproic Acid (Depakote, Stavzor) has been associated with a new potential side effect: pancreatitis. Healthcare providers should monitor patients for symptoms of pancreatitis and consider alternative treatments if necessary.</p>
+                </div>
+
+                <!-- Medication Details Card -->
+                <div *ngIf="selectedMedication" class="card-container">
                     <div class="card">
                         <div class="card-content">
                             <button class="button is-light is-large close-button" (click)="deselectMedication()">
@@ -61,8 +62,35 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Medication Table -->
+                <table class="table is-fullwidth is-hoverable" *ngIf="!selectedMedication">
+                    <thead>
+                        <tr>
+                            <th>Medication</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let medication of filteredMedications()" (click)="selectMedication(medication._id)">
+                            <td>{{ medication._id }}</td>
+                            <td>{{ medication.count }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Help and Resources -->
+                <div class="box">
+                    <h4 class="title is-5">Help and Resources</h4>
+                    <ul>
+                        <li><a href="https://www.epilepsy.com/" target="_blank">Epilepsy Foundation</a></li>
+                        <li><a href="https://www.fda.gov/drugs/drug-safety-and-availability/medication-guides" target="_blank">FDA Medication Guides</a></li>
+                        <li><a href="https://www.mayoclinic.org/diseases-conditions/epilepsy/symptoms-causes/syc-20350093" target="_blank">Mayo Clinic: Epilepsy</a></li>
+                        <li><a href="https://www.cdc.gov/epilepsy/index.html" target="_blank">CDC: Epilepsy</a></li>
+                        <li><a href="https://www.webmd.com/epilepsy/default.htm" target="_blank">WebMD: Epilepsy</a></li>
+                    </ul>
+                </div>
             </section>
         </div>
     </div>
-  </div>
-  
+</div>
