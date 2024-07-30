@@ -1,0 +1,97 @@
+/* src/app/reports-and-analytics/reports-and-analytics.component.scss */
+
+$primary-color: #000000;  // Black
+$secondary-color: #FFFFFF;  // White
+$background-color: #F8F9FA;  // Very Light Grey
+$highlight-color: #A8DADC;  // Powder Blue
+$text-color: #000000;  // Black
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $background-color;
+
+  .navbar {
+    background-color: $primary-color;
+    color: $highlight-color;
+  }
+
+  .navbar-brand {
+    .title {
+      color: $highlight-color;
+      font-size: 1.5rem;
+    }
+  }
+
+  .columns {
+    margin: 0;
+    padding: 0;
+    height: calc(100vh - 52px); /* Adjust for the height of the navbar */
+  }
+
+  .column {
+    overflow-y: auto;
+  }
+
+  .menu {
+    background-color: #e2e2e2;
+    color: $text-color;
+    height: 100%;
+    padding: 20px;
+
+    .menu-list {
+      .is-active {
+        background-color: $primary-color;
+        color: $highlight-color;
+      }
+      li {
+        margin-bottom: 15px;
+      }
+    }
+
+    .input {
+      margin-bottom: 20px;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .label {
+      color: $text-color;
+    }
+
+    .control .input {
+      background-color: $background-color;
+      color: $text-color;
+    }
+  }
+
+  .section {
+    background-color: $background-color;
+    color: $text-color;
+  }
+
+  .box {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: $secondary-color;
+    border: 1px solid $primary-color;
+  }
+
+  .chart-container {
+    margin-top: 20px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

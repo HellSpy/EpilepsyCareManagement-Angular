@@ -1,0 +1,61 @@
+<!-- src/app/reports-and-analytics/reports-and-analytics.component.html -->
+<div class="dashboard-container">
+    <nav class="navbar is-primary">
+        <div class="navbar-brand">
+            <span class="navbar-item title is-3">Epilepsy Healthcare Management System</span>
+        </div>
+    </nav>
+    <div class="columns is-gapless is-fullheight">
+        <aside class="column is-2 is-fullheight is-primary">
+            <div class="menu">
+                <ul class="menu-list">
+                    <li>
+                        <a [routerLink]="['/dashboard']" routerLinkActive="is-active">Patients</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/seizure-logs']" routerLinkActive="is-active">Seizure Logs</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/medication-management']" routerLinkActive="is-active">Medication Management</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/reports-analytics']" routerLinkActive="is-active">Reports & Analytics</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <div class="column is-paddingless">
+            <section class="section">
+                <h3 class="title is-4">Reports & Analytics</h3>
+
+                <div class="box">
+                    <h4 class="title is-5">Overview</h4>
+                    <p>Total Users: {{ userCount }}</p>
+                    <p>Total Seizure Logs: {{ seizureLogCount }}</p>
+                    <p>Total Medications: {{ medicationCount }}</p>
+                </div>
+
+                <div class="box">
+                    <h4 class="title is-5">User Roles Distribution</h4>
+                    <div class="chart-container">
+                        <canvas id="userRolesChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h4 class="title is-5">Seizure Types Distribution</h4>
+                    <div class="chart-container">
+                        <canvas id="seizureTypesChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h4 class="title is-5">Medication Usage</h4>
+                    <div class="chart-container">
+                        <canvas id="medicationUsageChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

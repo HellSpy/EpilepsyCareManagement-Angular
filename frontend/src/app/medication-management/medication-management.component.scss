@@ -1,12 +1,13 @@
 /* src/app/medication-management/medication-management.component.scss */
 
-$primary-color: #000000;  // Black
-$secondary-color: #FFFFFF;  // White
-$background-color: #F8F9FA;  // Very Light Grey
-$highlight-color: #A8DADC;  // Powder Blue
-$text-color: #000000;  // Black
+$primary-color: #000000; // Black
+$secondary-color: #FFFFFF; // White
+$background-color: #F8F9FA; // Very Light Grey
+$highlight-color: #A8DADC; // Powder Blue
+$text-color: #000000; // Black
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -52,7 +53,8 @@ html, body {
   .columns {
     margin: 0;
     padding: 0;
-    height: calc(100vh - 52px); /* Adjust for the height of the navbar */
+    height: calc(100vh - 52px);
+    /* Adjust for the height of the navbar */
   }
 
   .column {
@@ -70,6 +72,7 @@ html, body {
         background-color: $primary-color;
         color: $highlight-color;
       }
+
       li {
         margin-bottom: 15px;
       }
@@ -103,7 +106,8 @@ html, body {
     border-collapse: collapse;
     margin-bottom: 20px;
 
-    th, td {
+    th,
+    td {
       border: 1px solid $primary-color;
       padding: 10px;
       text-align: left;
@@ -150,7 +154,8 @@ html, body {
         right: 10px;
         font-size: 1.5rem;
         color: $primary-color;
-        cursor: pointer; /* Add cursor pointer for close button */
+        cursor: pointer;
+        /* Add cursor pointer for close button */
         z-index: 20;
       }
     }
@@ -158,9 +163,5 @@ html, body {
 
   .icon {
     font-size: 2rem;
-  }
-
-  .title {
-    margin-top: 20px;
   }
 }

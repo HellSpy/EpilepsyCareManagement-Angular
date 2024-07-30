@@ -5,6 +5,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const patientRoutes = require('./routes/patients');
 const seizureLogsRoutes = require('./routes/seizureLogs');
+const analyticsRouter = require('./routes/analytics');
 
 const app = express();
 
@@ -27,6 +28,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/epilepsy_health_system', {
 app.use('/api/auth', authRoutes);
 app.use('/api', patientRoutes);
 app.use('/api', seizureLogsRoutes);
+app.use('/api/analytics', analyticsRouter);
 
 // Basic route
 app.get('/', (req, res) => res.send('Hello World'));
