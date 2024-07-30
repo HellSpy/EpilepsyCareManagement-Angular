@@ -1,7 +1,8 @@
 // src/app/services/patient.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 export interface Patient {
   _id: string;
@@ -74,27 +75,31 @@ export interface MedicationDetails {
 export class PatientService {
   private apiUrl = 'http://localhost:3000/api';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
     console.log('PatientService initialized');
   }
 
   getPatients(): Observable<Patient[]> {
     console.log('getPatients called');
-    return this.http.get<Patient[]>(`${this.apiUrl}/patients`);
+    const headers = this.authService.getAuthHeaders();
+    return this.http.get<Patient[]>(`${this.apiUrl}/patients`, { headers });
   }
 
   getPatientById(id: string): Observable<Patient> {
     console.log('getPatientById called with id:', id);
-    return this.http.get<Patient>(`${this.apiUrl}/patients/${id}`);
+    const headers = this.authService.getAuthHeaders();
+    return this.http.get<Patient>(`${this.apiUrl}/patients/${id}`, { headers });
   }
 
   getMedications(): Observable<Medication[]> {
     console.log('getMedications called');
-    return this.http.get<Medication[]>(`${this.apiUrl}/medications`);
+    const headers = this.authService.getAuthHeaders();
+    return this.http.get<Medication[]>(`${this.apiUrl}/medications`, { headers });
   }
 
   getMedicationDetails(name: string): Observable<MedicationDetails> {
     console.log('getMedicationDetails called with name:', name);
-    return this.http.get<MedicationDetails>(`${this.apiUrl}/medications/${name}`);
+    const headers = this.authService.getAuthHeaders();
+    return this.http.get<MedicationDetails>(`${this.apiUrl}/medications/${name}`, { headers });
   }
 }

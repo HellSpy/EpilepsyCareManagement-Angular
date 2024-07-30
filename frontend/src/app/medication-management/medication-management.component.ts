@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientService, Medication, MedicationDetails } from '../services/patient.service';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   standalone: true,
@@ -16,9 +17,13 @@ export class MedicationManagementComponent implements OnInit {
   selectedMedication: MedicationDetails | null = null;
   searchText: string = '';
 
-  constructor(private patientService: PatientService) {}
+  constructor(private patientService: PatientService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
+    const userRole = this.authService.getUserRole();
+    if (userRole !== 'Doctor' && userRole !== 'Admin') {
+      this.router.navigate(['/login']);
+    }
     this.loadMedications();
   }
 

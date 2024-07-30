@@ -39,25 +39,33 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onLoginSubmit() {
+    console.log('Login form submitted:', this.email);
     this.authService.login(this.email, this.password).subscribe({
       next: res => {
-        localStorage.setItem('token', res.token);
-        this.router.navigate(['/dashboard']);
+        console.log('Login successful, redirecting to dashboard');
+        const role = this.authService.getUserRole();
+        if (role === 'Doctor' || role === 'Admin') {
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.router.navigate(['/']);
+        }
       },
       error: err => {
-        console.error(err);
+        console.error('Login error:', err);
         alert('Invalid credentials');
       }
     });
   }
 
   onRegisterSubmit() {
+    console.log('Register form submitted:', this.registerEmail);
     this.authService.register(this.name, this.registerEmail, this.registerPassword, this.role).subscribe({
       next: res => {
+        console.log('Registration successful');
         alert('Registration successful');
       },
       error: err => {
-        console.error(err);
+        console.error('Registration error:', err);
         alert('Registration failed');
       }
     });

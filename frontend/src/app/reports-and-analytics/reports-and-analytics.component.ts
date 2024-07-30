@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   standalone: true,
@@ -19,7 +20,7 @@ export class ReportsAndAnalyticsComponent implements OnInit {
   seizureTypes: any[] = [];
   medicationUsage: any[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
     Chart.register(...registerables); // Register the required components
   }
 
@@ -28,7 +29,8 @@ export class ReportsAndAnalyticsComponent implements OnInit {
   }
 
   loadStatistics(): void {
-    this.http.get<any>('http://localhost:3000/api/analytics/counts').subscribe(
+    const headers = this.authService.getAuthHeaders();
+    this.http.get<any>('http://localhost:3000/api/analytics/counts', { headers }).subscribe(
       data => {
         this.userCount = data.userCount;
         this.seizureLogCount = data.seizureLogCount;
@@ -39,7 +41,7 @@ export class ReportsAndAnalyticsComponent implements OnInit {
       }
     );
 
-    this.http.get<any>('http://localhost:3000/api/analytics/user-roles').subscribe(
+    this.http.get<any>('http://localhost:3000/api/analytics/user-roles', { headers }).subscribe(
       data => {
         this.userRoles = data;
         this.loadUserRolesChart();
@@ -49,7 +51,7 @@ export class ReportsAndAnalyticsComponent implements OnInit {
       }
     );
 
-    this.http.get<any>('http://localhost:3000/api/analytics/seizure-types').subscribe(
+    this.http.get<any>('http://localhost:3000/api/analytics/seizure-types', { headers }).subscribe(
       data => {
         this.seizureTypes = data;
         this.loadSeizureTypesChart();
@@ -59,7 +61,7 @@ export class ReportsAndAnalyticsComponent implements OnInit {
       }
     );
 
-    this.http.get<any>('http://localhost:3000/api/analytics/medication-usage').subscribe(
+    this.http.get<any>('http://localhost:3000/api/analytics/medication-usage', { headers }).subscribe(
       data => {
         this.medicationUsage = data;
         this.loadMedicationUsageChart();

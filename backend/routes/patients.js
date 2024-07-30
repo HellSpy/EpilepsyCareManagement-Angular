@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const User = require('../models/User');
+const { authenticateToken, authorizeRole } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // Get all patients with epilepsy
-router.get('/patients', async (req, res) => {
+router.get('/patients', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const patients = await User.find({ role: 'Patient' }, 'name email age gender primaryCarePhysician epilepsyDetails');
     res.json(patients);
@@ -14,7 +15,7 @@ router.get('/patients', async (req, res) => {
 });
 
 // Get a specific patient's details
-router.get('/patients/:id', async (req, res) => {
+router.get('/patients/:id', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     console.log('Fetching patient with ID:', req.params.id);
 
@@ -40,7 +41,7 @@ router.get('/patients/:id', async (req, res) => {
 });
 
 // Get all medications and their counts
-router.get('/medications', async (req, res) => {
+router.get('/medications', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const medications = await User.aggregate([
       { $match: { role: 'Patient' } },
@@ -55,7 +56,7 @@ router.get('/medications', async (req, res) => {
 
 const MedicationDetails = require('../models/MedicationDetails'); // THIS FETCHES MEDICATIONS FROM THE COLLECTION CALLED "MedicationDetails.js"
 
-router.get('/medications/:name', async (req, res) => {
+router.get('/medications/:name', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const medicationDetails = await MedicationDetails.findOne({ name: req.params.name });
     if (!medicationDetails) {

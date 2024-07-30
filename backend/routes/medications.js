@@ -1,10 +1,10 @@
-// backend/routes/medication.js
 const express = require('express');
 const MedicationDetails = require('../models/MedicationDetails');
+const { authenticateToken, authorizeRole } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // Get all medications with their counts
-router.get('/medications', async (req, res) => {
+router.get('/medications', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const medications = await MedicationDetails.find({}, { name: 1 });
     res.json(medications);
@@ -14,7 +14,7 @@ router.get('/medications', async (req, res) => {
 });
 
 // Get details of a specific medication by ID
-router.get('/medications/:id', async (req, res) => {
+router.get('/medications/:id', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const medication = await MedicationDetails.findById(req.params.id);
     if (!medication) {

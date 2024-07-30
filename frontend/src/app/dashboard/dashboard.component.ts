@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { PatientService, Patient, Medication } from '../services/patient.service';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,12 +23,16 @@ export class DashboardComponent implements OnInit {
   medications: Medication[] = [];
   physicians: string[] = [];
 
-  constructor(private patientService: PatientService) {
+  constructor(private patientService: PatientService, private authService: AuthService, private router: Router) {
     console.log('DashboardComponent initialized');
   }
 
   ngOnInit(): void {
     console.log('DashboardComponent ngOnInit');
+    const userRole = this.authService.getUserRole();
+    if (userRole !== 'Doctor' && userRole !== 'Admin') {
+      this.router.navigate(['/login']);
+    }
     this.patientService.getPatients().subscribe((data: Patient[]) => {
       console.log('Patients data received:', data);
       this.patients = data;

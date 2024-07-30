@@ -1,12 +1,13 @@
 // backend/routes/analytics.js
 const express = require('express');
+const { authenticateToken, authorizeRole } = require('../middleware/authMiddleware');
 const router = express.Router();
 const User = require('../models/User');
 const SeizureLog = require('../models/SeizureLog');
 const MedicationDetails = require('../models/MedicationDetails');
 
 // Get total counts for users, seizure logs, and medications
-router.get('/counts', async (req, res) => {
+router.get('/counts', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const userCount = await User.countDocuments();
     const seizureLogCount = await SeizureLog.countDocuments();
@@ -19,7 +20,7 @@ router.get('/counts', async (req, res) => {
 });
 
 // Get statistics for users by role
-router.get('/user-roles', async (req, res) => {
+router.get('/user-roles', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const roles = await User.aggregate([
       { $group: { _id: "$role", count: { $sum: 1 } } }
@@ -32,7 +33,7 @@ router.get('/user-roles', async (req, res) => {
 });
 
 // Get statistics for seizure types
-router.get('/seizure-types', async (req, res) => {
+router.get('/seizure-types', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const seizureTypes = await SeizureLog.aggregate([
       { $unwind: "$seizureLogs" },
@@ -46,7 +47,7 @@ router.get('/seizure-types', async (req, res) => {
 });
 
 // Get statistics for medication usage
-router.get('/medication-usage', async (req, res) => {
+router.get('/medication-usage', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const medicationUsage = await User.aggregate([
       { $match: { role: 'Patient' } },

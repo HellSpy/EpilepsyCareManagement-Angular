@@ -2,15 +2,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const SeizureLog = require('../models/SeizureLog'); // Import the SeizureLog model
+const { authenticateToken, authorizeRole } = require('../middleware/authMiddleware');
 
 // Middleware to check if route is initialized
-router.use((req, res, next) => {
-  console.log('Seizure Logs route initialized');
-  next();
-});
+// router.use((req, res, next) => {
+//   console.log('Seizure Logs route initialized');
+//   next();
+// });
 
 // Get all seizure logs
-router.get('/seizure-logs', async (req, res) => {
+router.get('/seizure-logs', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   console.log('Fetching all seizure logs');
   try {
     const seizureLogs = await SeizureLog.find({});
@@ -23,7 +24,7 @@ router.get('/seizure-logs', async (req, res) => {
 });
 
 // Get a specific patient's seizure logs
-router.get('/seizure-logs/:patientId', async (req, res) => {
+router.get('/seizure-logs/:patientId', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const { patientId } = req.params;
     console.log(`Fetching seizure logs for patient ID: ${patientId}`);
@@ -43,7 +44,7 @@ router.get('/seizure-logs/:patientId', async (req, res) => {
 });
 
 // Add a new seizure log
-router.post('/seizure-logs/:patientId', async (req, res) => {
+router.post('/seizure-logs/:patientId', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const { patientId } = req.params;
     const { date, type, duration, triggers } = req.body;
@@ -71,7 +72,7 @@ router.post('/seizure-logs/:patientId', async (req, res) => {
 });
 
 // Edit an existing seizure log
-router.put('/seizure-logs/:patientId/:logId', async (req, res) => {
+router.put('/seizure-logs/:patientId/:logId', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const { patientId, logId } = req.params;
     const { date, type, duration, triggers } = req.body;
@@ -101,7 +102,7 @@ router.put('/seizure-logs/:patientId/:logId', async (req, res) => {
 });
 
 // Delete a seizure log
-router.delete('/seizure-logs/:patientId/:logId', async (req, res) => {
+router.delete('/seizure-logs/:patientId/:logId', authenticateToken, authorizeRole(['Doctor', 'Admin']), async (req, res) => {
   try {
     const { patientId, logId } = req.params;
     console.log(`Deleting seizure log ID: ${logId} for patient ID: ${patientId}`);
