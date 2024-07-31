@@ -119,10 +119,16 @@ export class DashboardComponent implements OnInit {
   applyGenderFilter(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     const gender = selectElement.value.trim();
-    this.filteredPatients = this.patients.filter(patient =>
-      patient.gender?.toLowerCase() === gender.toLowerCase()
-    );
+  
+    if (gender === '') {
+      this.filteredPatients = this.patients;
+    } else {
+      this.filteredPatients = this.patients.filter(patient =>
+        patient.gender?.toLowerCase() === gender.toLowerCase()
+      );
+    }
   }
+  
 
   applyDiagnosisDateFilter(event: Event): void {
     const input = event.target as HTMLInputElement;

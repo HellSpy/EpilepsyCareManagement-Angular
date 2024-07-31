@@ -44,12 +44,12 @@ export class MedicationManagementComponent implements OnInit {
       return this.medications;
     }
     return this.medications.filter(medication =>
-      medication._id.toLowerCase().includes(this.searchText.toLowerCase())
+      medication._id?.toLowerCase().includes(this.searchText.toLowerCase())
     );
-  }
+  }  
 
-  selectMedication(name: string): void {
-    this.patientService.getMedicationDetails(name).subscribe(
+  selectMedication(id: string): void {
+    this.patientService.getMedicationDetails(id).subscribe(
       (data: MedicationDetails) => {
         this.selectedMedication = data;
       },
