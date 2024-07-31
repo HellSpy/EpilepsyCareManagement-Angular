@@ -1,4 +1,3 @@
-// src/app/auth/login/login.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -46,6 +45,8 @@ export class LoginComponent {
         const role = this.authService.getUserRole();
         if (role === 'Doctor' || role === 'Admin') {
           this.router.navigate(['/dashboard']);
+        } else if (role === 'Patient') {
+          this.router.navigate(['/patient']);
         } else {
           this.router.navigate(['/']);
         }

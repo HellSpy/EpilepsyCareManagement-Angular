@@ -1,0 +1,61 @@
+.patient-page {
+    .box {
+      background-color: #f7fff7;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      padding: 1.5rem;
+      border: 2px solid #2f3061;
+    }
+  
+    h1.title {
+      margin-bottom: 2rem;
+      color: #2f3061;
+    }
+  
+    .subtitle {
+      margin-top: 1rem;
+      color: #343434;
+    }
+  
+    .content {
+      padding: 1rem;
+      border-radius: 10px;
+      background-color: #ffffff;
+      border: 1px solid #6ca6c1;
+    }
+  
+    .personal-info {
+      background-color: #ffe66d;
+    }
+  
+    .epilepsy-details {
+      background-color: #6ca6c1;
+    }
+  
+    .lifestyle {
+      background-color: #f7fff7;
+    }
+  
+    .support-resources {
+      background-color: #ffe66d;
+    }
+  
+    .columns.is-multiline .column {
+      padding-bottom: 1rem;
+    }
+  
+    .button.is-primary {
+      background-color: #2f3061;
+      border-color: #2f3061;
+      color: #ffffff;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+  
+      &:hover {
+        background-color: #6ca6c1;
+        border-color: #6ca6c1;
+      }
+    }
+  }
+  

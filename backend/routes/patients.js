@@ -68,5 +68,20 @@ router.get('/medications/:name', authenticateToken, authorizeRole(['Doctor', 'Ad
   }
 });
 
+// Get a specific patient's details by email
+router.get('/patients/email/:email', authenticateToken, authorizeRole(['Patient', 'Doctor', 'Admin']), async (req, res) => {
+  try {
+    const patient = await User.findOne({ email: req.params.email });
+    if (!patient) {
+      return res.status(404).send('Patient not found');
+    }
+    res.json(patient);
+  } catch (error) {
+    console.error('Error fetching patient:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+
 
 module.exports = router;

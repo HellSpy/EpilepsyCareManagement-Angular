@@ -10,6 +10,7 @@ import { MedicationManagementComponent } from './medication-management/medicatio
 import { ReportsAndAnalyticsComponent } from './reports-and-analytics/reports-and-analytics.component'; // report component
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
+import { PatientPageComponent } from './patient-page/patient-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'seizure-logs', component: SeizureLogsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['Doctor', 'Admin'] }},
   { path: 'medication-management', component: MedicationManagementComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['Doctor', 'Admin'] }},
   { path: 'reports-analytics', component: ReportsAndAnalyticsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['Doctor', 'Admin'] }},
+  { path: 'patient', component: PatientPageComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['Patient'] }},
 ];
 
 @NgModule({

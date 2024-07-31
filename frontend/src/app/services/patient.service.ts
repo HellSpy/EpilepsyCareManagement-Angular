@@ -102,4 +102,9 @@ export class PatientService {
     const headers = this.authService.getAuthHeaders();
     return this.http.get<MedicationDetails>(`${this.apiUrl}/medications/${name}`, { headers });
   }
+  getPatientByEmail(email: string): Observable<Patient> {
+    console.log('getPatientByEmail called with email:', email);
+    const headers = this.authService.getAuthHeaders();
+    return this.http.get<Patient>(`${this.apiUrl}/patients/email/${email}`, { headers });
+  }
 }
