@@ -1,0 +1,25 @@
+<!-- src/app/shared/navigation-panel/navigation-panel.component.html -->
+<div class="menu">
+    <ul class="menu-list">
+      <li>
+        <a [routerLink]="['/dashboard']" routerLinkActive="is-active">Patients</a>
+      </li>
+      <li>
+        <a [routerLink]="['/seizure-logs']" routerLinkActive="is-active">Seizure Logs</a>
+      </li>
+      <li>
+        <a [routerLink]="['/medication-management']" routerLinkActive="is-active">Medication Management</a>
+      </li>
+      <li>
+        <a [routerLink]="['/reports-analytics']" routerLinkActive="is-active">Reports & Analytics</a>
+      </li>
+    </ul>
+    <div class="user-info">
+      <p class="user-details">
+        <span>{{ userEmail }}</span>
+        <span>{{ userRole }}</span>
+      </p>
+      <button class="button is-light" (click)="logout()">Sign Out</button>
+    </div>
+  </div>
+  

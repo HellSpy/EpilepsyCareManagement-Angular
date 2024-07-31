@@ -4,6 +4,7 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { NavigationPanelComponent } from '../shared/navigation-panel/navigation-panel.component';
 
 interface SeizureLog {
   _id: string; // Updated to use MongoDB _id field
@@ -26,7 +27,7 @@ interface Patient {
 @Component({
   selector: 'app-seizure-logs',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, HttpClientModule, RouterModule, ReactiveFormsModule, NavigationPanelComponent],
   templateUrl: './seizure-logs.component.html',
   styleUrls: ['./seizure-logs.component.scss']
 })

@@ -6,24 +6,9 @@
         </div>
     </nav>
     <div class="columns is-gapless is-fullheight">
-        <aside class="column is-2 is-fullheight is-primary">
-            <div class="menu">
-                <ul class="menu-list">
-                    <li>
-                        <a [routerLink]="['/dashboard']" routerLinkActive="is-active">Patients</a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/seizure-logs']" routerLinkActive="is-active">Seizure Logs</a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/medication-management']" routerLinkActive="is-active">Medication Management</a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/reports-analytics']" routerLinkActive="is-active">Reports & Analytics</a>
-                    </li>
-                </ul>
-            </div>
-        </aside>
+        <aside class="column is-2 is-fullheight is-primary adjustsection2">
+            <app-navigation-panel></app-navigation-panel>
+          </aside>
         <div class="column is-paddingless">
             <section class="section">
                 <h3 class="title is-4">Reports & Analytics</h3>

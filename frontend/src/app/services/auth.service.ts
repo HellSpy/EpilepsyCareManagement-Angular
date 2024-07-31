@@ -73,4 +73,13 @@ export class AuthService {
     console.log('No token found, returning empty role');
     return '';
   }
+  getUserEmail(): string | null {
+    const token = this.getToken();
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      console.log('Token payload:', payload);  // Log the payload to check its structure
+      return payload.user.email;
+    }
+    return null;
+  }  
 }

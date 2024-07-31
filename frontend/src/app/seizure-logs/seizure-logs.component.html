@@ -4,24 +4,9 @@
       <span class="navbar-item title is-3">Epilepsy Healthcare Management System</span>
     </div>
   </nav>
-  <div class="columns is-gapless is-fullheight">
+  <div class="columns is-gapless is-fullheight adjustsection2">
     <aside class="column is-2 is-fullheight is-primary">
-      <div class="menu">
-        <ul class="menu-list">
-          <li>
-            <a [routerLink]="['/dashboard']" routerLinkActive="is-active">Patients</a>
-          </li>
-          <li>
-            <a [routerLink]="['/seizure-logs']" routerLinkActive="is-active">Seizure Logs</a>
-          </li>
-          <li>
-            <a [routerLink]="['/medication-management']" routerLinkActive="is-active">Medication Management</a>
-          </li>
-          <li>
-            <a [routerLink]="['/reports-analytics']" routerLinkActive="is-active">Reports & Analytics</a>
-          </li>
-        </ul>
-      </div>
+      <app-navigation-panel></app-navigation-panel>
     </aside>
     <div class="column is-paddingless">
       <section class="section adjustsection">

@@ -4,13 +4,14 @@ import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { NavigationPanelComponent } from '../shared/navigation-panel/navigation-panel.component';
 
 @Component({
   standalone: true,
   selector: 'app-medication-management',
   templateUrl: './medication-management.component.html',
   styleUrls: ['./medication-management.component.scss'],
-  imports: [RouterModule, CommonModule, FormsModule]
+  imports: [RouterModule, CommonModule, FormsModule, NavigationPanelComponent]
 })
 export class MedicationManagementComponent implements OnInit {
   medications: Medication[] = [];

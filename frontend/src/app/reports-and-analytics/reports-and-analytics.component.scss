@@ -13,6 +13,10 @@ html, body {
   overflow: hidden;
 }
 
+.adjustsection2 {
+  overflow: hidden !important;
+}
+
 .dashboard-container {
   display: flex;
   flex-direction: column;

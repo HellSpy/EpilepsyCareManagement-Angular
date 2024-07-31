@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { PatientService, Patient, Medication } from '../services/patient.service';
 import { RouterModule, Router } from '@angular/router';
+import { NavigationPanelComponent } from '../shared/navigation-panel/navigation-panel.component';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -11,7 +12,8 @@ import { AuthService } from '../services/auth.service';
   imports: [
     CommonModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    NavigationPanelComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']

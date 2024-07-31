@@ -1,10 +1,11 @@
-$primary-color: #000000;  // Black
-$secondary-color: #FFFFFF;  // White
-$background-color: #F8F9FA;  // Very Light Grey
-$highlight-color: #A8DADC;  // Powder Blue
-$text-color: #000000;  // Black
+$primary-color: #000000; // Black
+$secondary-color: #FFFFFF; // White
+$background-color: #F8F9FA; // Very Light Grey
+$highlight-color: #A8DADC; // Powder Blue
+$text-color: #000000; // Black
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -32,21 +33,24 @@ html, body {
   .columns {
     margin: 0;
     padding: 0;
-  }
-
-  .adjustsection {
-    height: 100%;
+    flex: 1;
+    overflow: hidden;
+    background-color: $background-color !important;
   }
 
   .column {
     background-color: #e2e2e2 !important;
+    overflow-y: auto;
+    height: 100%;
+    background-color: $background-color !important;
   }
 
   .menu {
     background-color: #e2e2e2;
     color: $text-color;
-    height: 100vh;
+    height: 100%;
     padding: 20px;
+    overflow-y: auto;
 
     .menu-list {
       .is-active {
@@ -82,6 +86,8 @@ html, body {
     color: $text-color;
     padding-top: 10px; // Reduced vertical spacing
     padding-bottom: 10px; // Reduced vertical spacing
+    flex: 1;
+    overflow-y: auto;
   }
 
   .table {
@@ -89,7 +95,8 @@ html, body {
     border-collapse: collapse;
     margin-top: 10px; // Reduced vertical spacing
 
-    th, td {
+    th,
+    td {
       border: 1px solid $primary-color;
       padding: 10px;
       text-align: left;

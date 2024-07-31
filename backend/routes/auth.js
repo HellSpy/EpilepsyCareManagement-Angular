@@ -54,6 +54,7 @@ router.post('/login', async (req, res) => {
     const payload = {
       user: {
         id: user.id,
+        email: user.email,  // Add email to the payload
         role: user.role
       }
     };
@@ -74,5 +75,6 @@ router.post('/login', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
 
 module.exports = router;

@@ -4,13 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { NavigationPanelComponent } from '../shared/navigation-panel/navigation-panel.component';
 
 @Component({
   standalone: true,
   selector: 'app-reports-and-analytics',
   templateUrl: './reports-and-analytics.component.html',
   styleUrls: ['./reports-and-analytics.component.scss'],
-  imports: [RouterModule, CommonModule]
+  imports: [RouterModule, CommonModule, NavigationPanelComponent]
 })
 export class ReportsAndAnalyticsComponent implements OnInit {
   userCount: number = 0;
