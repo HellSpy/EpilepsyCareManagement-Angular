@@ -14,7 +14,7 @@ import { PatientPageComponent } from './patient-page/patient-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['Doctor', 'Admin'] }},
   { path: 'seizure-logs', component: SeizureLogsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['Doctor', 'Admin'] }},
