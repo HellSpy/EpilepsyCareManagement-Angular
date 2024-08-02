@@ -1,8 +1,8 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { tap, catchError, map } from 'rxjs/operators';
 
 interface LoginResponse {
   token: string;
@@ -40,7 +40,7 @@ export class AuthService {
 
   getToken(): string | null {
     const token = localStorage.getItem(this.tokenKey);
-    console.log('Retrieved token:', token);
+    // console.log('Retrieved token:', token);
     return token;
   }
 
@@ -52,6 +52,24 @@ export class AuthService {
     });
   }
 
+  isTokenValid(): Observable<boolean> {
+    const token = this.getToken();
+    if (!token) {
+      return of(false);
+    }
+    
+    return this.http.get<any>(`${this.apiUrl}/validate-token`, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      map(() => true), // If the request succeeds, the token is valid
+      catchError(() => {
+        console.log('Token is invalid');
+        this.logout();
+        return of(false);
+      })
+    );
+  }
+
   logout(): void {
     console.log('Logging out, removing token');
     localStorage.removeItem(this.tokenKey);
@@ -59,7 +77,7 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     const loggedIn = !!this.getToken();
-    console.log('Is logged in:', loggedIn);
+    // console.log('Is logged in:', loggedIn);
     return loggedIn;
   }
 
