@@ -1,4 +1,3 @@
-// src/app/services/patient.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -102,9 +101,16 @@ export class PatientService {
     const headers = this.authService.getAuthHeaders();
     return this.http.get<MedicationDetails>(`${this.apiUrl}/medications/${name}`, { headers });
   }
+
   getPatientByEmail(email: string): Observable<Patient> {
     console.log('getPatientByEmail called with email:', email);
     const headers = this.authService.getAuthHeaders();
     return this.http.get<Patient>(`${this.apiUrl}/patients/email/${email}`, { headers });
+  }
+
+  updatePatient(patient: Patient): Observable<any> {
+    console.log('updatePatient called with patient:', patient);
+    const headers = this.authService.getAuthHeaders();
+    return this.http.put(`${this.apiUrl}/patients/${patient._id}`, patient, { headers });
   }
 }

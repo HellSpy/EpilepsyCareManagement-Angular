@@ -82,6 +82,23 @@ router.get('/patients/email/:email', authenticateToken, authorizeRole(['Patient'
   }
 });
 
+// Update a patient's details
+router.put('/patients/:id', authenticateToken, authorizeRole(['Patient', 'Doctor', 'Admin']), async (req, res) => {
+  try {
+    const patientId = new mongoose.Types.ObjectId(req.params.id);
+    const updatedPatient = await User.findByIdAndUpdate(patientId, req.body, { new: true });
+    if (!updatedPatient) {
+      return res.status(404).send('Patient not found');
+    }
+    res.json(updatedPatient);
+  } catch (error) {
+    console.error('Error updating patient:', error);
+    if (error instanceof mongoose.Error.CastError) {
+      return res.status(400).send('Invalid patient ID format');
+    }
+    res.status(500).send('Server error');
+  }
+});
 
 
 module.exports = router;

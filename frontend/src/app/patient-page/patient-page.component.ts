@@ -3,16 +3,18 @@ import { PatientService, Patient } from '../services/patient.service';
 import { AuthService } from '../services/auth.service';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';  // Import FormsModule
 
 @Component({
   selector: 'app-patient-page',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, FormsModule],  // Add FormsModule to imports
   templateUrl: './patient-page.component.html',
   styleUrls: ['./patient-page.component.scss']
 })
 export class PatientPageComponent implements OnInit {
   patient: Patient | null = null;
+  editMode = false;  // Flag to toggle edit mode
 
   constructor(
     private patientService: PatientService,
@@ -39,6 +41,26 @@ export class PatientPageComponent implements OnInit {
         },
         error => {
           console.error('Error fetching patient information', error);
+        }
+      );
+    }
+  }
+
+  // Toggle edit mode
+  toggleEditMode(): void {
+    this.editMode = !this.editMode;
+  }
+
+  // Save patient information
+  savePatientInfo(): void {
+    if (this.patient) {
+      this.patientService.updatePatient(this.patient).subscribe(
+        response => {
+          console.log('Patient information updated successfully', response);
+          this.editMode = false;  // Exit edit mode
+        },
+        error => {
+          console.error('Error updating patient information', error);
         }
       );
     }

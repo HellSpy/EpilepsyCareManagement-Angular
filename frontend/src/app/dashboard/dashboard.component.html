@@ -40,145 +40,145 @@
                   <i class="fas fa-times"></i>
                 </span>
               </button>
-              <div class="card-content">
-                <h3 class="title is-4">{{ selectedPatient.name }}</h3>
+              <div class="card-content" *ngIf="selectedPatient">
+                <h3 class="title is-4">{{ selectedPatient?.name }}</h3>
                 <table class="table is-fullwidth">
                   <tbody>
                     <tr>
                       <td><strong>Email:</strong></td>
-                      <td>{{ selectedPatient.email }}</td>
+                      <td>{{ selectedPatient?.email }}</td>
                     </tr>
                     <tr>
                       <td><strong>Age:</strong></td>
-                      <td>{{ selectedPatient.age }}</td>
+                      <td>{{ selectedPatient?.age }}</td>
                     </tr>
                     <tr>
                       <td><strong>Gender:</strong></td>
-                      <td>{{ selectedPatient.gender }}</td>
+                      <td>{{ selectedPatient?.gender }}</td>
                     </tr>
                     <tr>
                       <td><strong>Date of Birth:</strong></td>
-                      <td>{{ selectedPatient.dateOfBirth | date }}</td>
+                      <td>{{ selectedPatient?.dateOfBirth | date }}</td>
                     </tr>
                     <tr>
                       <td><strong>Phone Number:</strong></td>
-                      <td>{{ selectedPatient.phoneNumber }}</td>
+                      <td>{{ selectedPatient?.phoneNumber }}</td>
                     </tr>
                     <tr>
                       <td><strong>Address:</strong></td>
-                      <td>{{ selectedPatient.address }}</td>
+                      <td>{{ selectedPatient?.address }}</td>
                     </tr>
                     <tr>
                       <td><strong>Primary Care Physician:</strong></td>
-                      <td>{{ selectedPatient.primaryCarePhysician }}</td>
+                      <td>{{ selectedPatient?.primaryCarePhysician }}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="selectedPatient?.emergencyContact">
                       <td><strong>Emergency Contact:</strong></td>
-                      <td>{{ selectedPatient.emergencyContact.name }} ({{ selectedPatient.emergencyContact.relationship }}), {{ selectedPatient.emergencyContact.phone }}</td>
+                      <td>{{ selectedPatient?.emergencyContact?.name }} ({{ selectedPatient?.emergencyContact?.relationship }}), {{ selectedPatient?.emergencyContact?.phone }}</td>
                     </tr>
                     <tr>
                       <td><strong>Known Allergies:</strong></td>
-                      <td>{{ selectedPatient.knownAllergies }}</td>
+                      <td>{{ selectedPatient?.knownAllergies }}</td>
                     </tr>
                     <tr>
                       <td><strong>Previous Surgeries:</strong></td>
-                      <td>{{ selectedPatient.previousSurgeries }}</td>
+                      <td>{{ selectedPatient?.previousSurgeries }}</td>
                     </tr>
                     <tr>
                       <td><strong>Comorbidities:</strong></td>
-                      <td>{{ selectedPatient.comorbidities }}</td>
+                      <td>{{ selectedPatient?.comorbidities }}</td>
                     </tr>
                     <tr>
                       <td><strong>Diagnosis Date:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.diagnosisDate | date }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.diagnosisDate | date }}</td>
                     </tr>
                     <tr>
                       <td><strong>Medication:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.medication }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.medication }}</td>
                     </tr>
                     <tr>
                       <td><strong>Medication Dosage:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.medicationDosage }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.medicationDosage }}</td>
                     </tr>
                     <tr>
                       <td><strong>Medication Side Effects:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.medicationSideEffects }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.medicationSideEffects }}</td>
                     </tr>
                     <tr>
                       <td><strong>Last Seizure Date:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.lastSeizureDate | date }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.lastSeizureDate | date }}</td>
                     </tr>
                     <tr>
                       <td><strong>Seizure Type:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.seizureType }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.seizureType }}</td>
                     </tr>
                     <tr>
                       <td><strong>Seizure Triggers:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.seizureTriggers }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.seizureTriggers }}</td>
                     </tr>
                     <tr>
                       <td><strong>Seizure Frequency:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.seizureFrequency }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.seizureFrequency }}</td>
                     </tr>
                     <tr>
                       <td><strong>Seizure Duration:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.seizureDuration }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.seizureDuration }}</td>
                     </tr>
                     <tr>
                       <td><strong>Seizure Aura:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.seizureAura }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.seizureAura }}</td>
                     </tr>
                     <tr>
                       <td><strong>Response to Treatment:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.responseToTreatment }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.responseToTreatment }}</td>
                     </tr>
                     <tr>
                       <td><strong>Notes:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.notes }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.notes }}</td>
                     </tr>
                     <tr>
                       <td><strong>Family History:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.familyHistory }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.familyHistory }}</td>
                     </tr>
                     <tr>
                       <td><strong>Allergies:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.allergies }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.allergies }}</td>
                     </tr>
                     <tr>
                       <td><strong>Comorbidities:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.comorbidities }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.comorbidities }}</td>
                     </tr>
                     <tr>
                       <td><strong>VNS:</strong></td>
-                      <td>{{ selectedPatient.epilepsyDetails.VNS }}</td>
+                      <td>{{ selectedPatient?.epilepsyDetails?.VNS }}</td>
                     </tr>
                     <tr>
                       <td><strong>Dietary Habits:</strong></td>
-                      <td>{{ selectedPatient.lifestyle.dietaryHabits }}</td>
+                      <td>{{ selectedPatient?.lifestyle?.dietaryHabits }}</td>
                     </tr>
                     <tr>
                       <td><strong>Exercise Routine:</strong></td>
-                      <td>{{ selectedPatient.lifestyle.exerciseRoutine }}</td>
+                      <td>{{ selectedPatient?.lifestyle?.exerciseRoutine }}</td>
                     </tr>
                     <tr>
                       <td><strong>Sleep Patterns:</strong></td>
-                      <td>{{ selectedPatient.lifestyle.sleepPatterns }}</td>
+                      <td>{{ selectedPatient?.lifestyle?.sleepPatterns }}</td>
                     </tr>
                     <tr>
                       <td><strong>Smoking/Alcohol Use:</strong></td>
-                      <td>{{ selectedPatient.lifestyle.smokingAlcoholUse }}</td>
+                      <td>{{ selectedPatient?.lifestyle?.smokingAlcoholUse }}</td>
                     </tr>
                     <tr>
                       <td><strong>Support Groups:</strong></td>
-                      <td>{{ selectedPatient.supportResources.supportGroups }}</td>
+                      <td>{{ selectedPatient?.supportResources?.supportGroups }}</td>
                     </tr>
                     <tr>
                       <td><strong>Educational Materials:</strong></td>
-                      <td>{{ selectedPatient.supportResources.educationalMaterials }}</td>
+                      <td>{{ selectedPatient?.supportResources?.educationalMaterials }}</td>
                     </tr>
                     <tr>
                       <td><strong>Care Plan:</strong></td>
-                      <td>{{ selectedPatient.supportResources.carePlan }}</td>
+                      <td>{{ selectedPatient?.supportResources?.carePlan }}</td>
                     </tr>
                   </tbody>
                 </table>

@@ -1,201 +1,272 @@
 <!-- src/app/patient-page/patient-page.component.html -->
 <div class="container patient-page" *ngIf="patient">
-    <div class="section">
-      <h1 class="title has-text-centered">{{ patient.name }}</h1>
-      <div class="columns is-multiline is-centered">
-        <div class="column is-8">
-          <div class="box personal-info">
-            <h2 class="subtitle">Personal Information</h2>
-            <div class="columns is-multiline">
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Email:</strong> {{ patient.email }}
+  <div class="section">
+    <h1 class="title has-text-centered">{{ patient.name }}</h1>
+    <div class="columns is-multiline is-centered">
+      <div class="column is-8">
+        <div class="box personal-info">
+          <h2 class="subtitle">Personal Information</h2>
+          <div class="columns is-multiline">
+            <div class="column is-half">
+              <div class="content">
+                <strong>Email:</strong>
+                <div *ngIf="!editMode">{{ patient.email }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.email" class="input" type="email">
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Age:</strong>
+                <div *ngIf="!editMode">{{ patient.age }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.age" class="input" type="number">
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Gender:</strong>
+                <div *ngIf="!editMode">{{ patient.gender }}</div>
+                <div *ngIf="editMode">
+                  <select [(ngModel)]="patient.gender" class="input">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Age:</strong> {{ patient.age }}
-                </div>
+            </div>            
+            <div class="column is-half">
+              <div class="content">
+                <strong>Date of Birth:</strong>
+                <div *ngIf="!editMode">{{ patient.dateOfBirth | date }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.dateOfBirth" class="input" type="date">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Gender:</strong> {{ patient.gender }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Phone Number:</strong>
+                <div *ngIf="!editMode">{{ patient.phoneNumber }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.phoneNumber" class="input" type="tel">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Date of Birth:</strong> {{ patient.dateOfBirth | date }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Address:</strong>
+                <div *ngIf="!editMode">{{ patient.address }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.address" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Phone Number:</strong> {{ patient.phoneNumber }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Primary Care Physician:</strong>
+                <div *ngIf="!editMode">{{ patient.primaryCarePhysician }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.primaryCarePhysician" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Address:</strong> {{ patient.address }}
-                </div>
-              </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Primary Care Physician:</strong> {{ patient.primaryCarePhysician }}
-                </div>
-              </div>
-              <div class="column is-half" *ngIf="patient.emergencyContact?.name">
-                <div class="content">
-                  <strong>Emergency Contact:</strong>
-                  <p><strong>Name:</strong> {{ patient.emergencyContact.name }}</p>
-                  <p><strong>Relationship:</strong> {{ patient.emergencyContact.relationship }}</p>
-                  <p><strong>Phone:</strong> {{ patient.emergencyContact.phone }}</p>
-                </div>
+            </div>
+            <div class="column is-half" *ngIf="patient.emergencyContact?.name">
+              <div class="content">
+                <strong>Emergency Contact:</strong>
+                <p *ngIf="!editMode"><strong>Name:</strong> {{ patient.emergencyContact.name }}</p>
+                <input *ngIf="editMode" [(ngModel)]="patient.emergencyContact.name" class="input" type="text">
+                <p *ngIf="!editMode"><strong>Relationship:</strong> {{ patient.emergencyContact.relationship }}</p>
+                <input *ngIf="editMode" [(ngModel)]="patient.emergencyContact.relationship" class="input" type="text">
+                <p *ngIf="!editMode"><strong>Phone:</strong> {{ patient.emergencyContact.phone }}</p>
+                <input *ngIf="editMode" [(ngModel)]="patient.emergencyContact.phone" class="input" type="tel">
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-8">
-          <div class="box epilepsy-details">
-            <h2 class="subtitle">Epilepsy Details</h2>
-            <div class="columns is-multiline">
-              <div class="column is-half" *ngIf="patient.epilepsyDetails?.diagnosisDate">
-                <div class="content">
-                  <strong>Diagnosis Date:</strong> {{ patient.epilepsyDetails.diagnosisDate | date }}
-                </div>
+      </div>
+      <div class="column is-8">
+        <div class="box epilepsy-details">
+          <h2 class="subtitle">Epilepsy Details</h2>
+          <div class="columns is-multiline">
+            <div class="column is-half" *ngIf="patient.epilepsyDetails?.diagnosisDate">
+              <div class="content">
+                <strong>Diagnosis Date:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.diagnosisDate | date }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.diagnosisDate" class="input" type="date">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Medication:</strong> {{ patient.epilepsyDetails.medication }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Medication:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.medication }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.medication" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Medication Dosage:</strong> {{ patient.epilepsyDetails.medicationDosage }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Medication Dosage:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.medicationDosage }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.medicationDosage" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Medication Side Effects:</strong> {{ patient.epilepsyDetails.medicationSideEffects }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Medication Side Effects:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.medicationSideEffects }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.medicationSideEffects" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Last Seizure Date:</strong> {{ patient.epilepsyDetails.lastSeizureDate | date }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Last Seizure Date:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.lastSeizureDate | date }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.lastSeizureDate" class="input" type="date">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Seizure Type:</strong> {{ patient.epilepsyDetails.seizureType }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Seizure Type:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.seizureType }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.seizureType" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Seizure Triggers:</strong> {{ patient.epilepsyDetails.seizureTriggers }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Seizure Triggers:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.seizureTriggers }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.seizureTriggers" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Seizure Frequency:</strong> {{ patient.epilepsyDetails.seizureFrequency }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Seizure Frequency:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.seizureFrequency }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.seizureFrequency" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Seizure Duration:</strong> {{ patient.epilepsyDetails.seizureDuration }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Seizure Duration:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.seizureDuration }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.seizureDuration" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Seizure Aura:</strong> {{ patient.epilepsyDetails.seizureAura }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Seizure Aura:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.seizureAura }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.seizureAura" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Response to Treatment:</strong> {{ patient.epilepsyDetails.responseToTreatment }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Response to Treatment:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.responseToTreatment }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.responseToTreatment" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Notes:</strong> {{ patient.epilepsyDetails.notes }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Notes:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.notes }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.notes" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Family History:</strong> {{ patient.epilepsyDetails.familyHistory }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Family History:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.familyHistory }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.familyHistory" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Allergies:</strong> {{ patient.epilepsyDetails.allergies }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Allergies:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.allergies }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.allergies" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Comorbidities:</strong> {{ patient.epilepsyDetails.comorbidities }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Comorbidities:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.comorbidities }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.comorbidities" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>VNS:</strong> {{ patient.epilepsyDetails.VNS }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>VNS:</strong>
+                <div *ngIf="!editMode">{{ patient.epilepsyDetails.VNS }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.epilepsyDetails.VNS" class="input" type="text">
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-8">
-          <div class="box lifestyle">
-            <h2 class="subtitle">Lifestyle</h2>
-            <div class="columns is-multiline">
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Dietary Habits:</strong> {{ patient.lifestyle?.dietaryHabits }}
-                </div>
+      </div>
+      <div class="column is-8">
+        <div class="box lifestyle">
+          <h2 class="subtitle">Lifestyle</h2>
+          <div class="columns is-multiline">
+            <div class="column is-half">
+              <div class="content">
+                <strong>Dietary Habits:</strong>
+                <div *ngIf="!editMode">{{ patient.lifestyle?.dietaryHabits }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.lifestyle.dietaryHabits" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Exercise Routine:</strong> {{ patient.lifestyle?.exerciseRoutine }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Exercise Routine:</strong>
+                <div *ngIf="!editMode">{{ patient.lifestyle?.exerciseRoutine }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.lifestyle.exerciseRoutine" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Sleep Patterns:</strong> {{ patient.lifestyle?.sleepPatterns }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Sleep Patterns:</strong>
+                <div *ngIf="!editMode">{{ patient.lifestyle?.sleepPatterns }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.lifestyle.sleepPatterns" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Smoking/Alcohol Use:</strong> {{ patient.lifestyle?.smokingAlcoholUse }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Smoking/Alcohol Use:</strong>
+                <div *ngIf="!editMode">{{ patient.lifestyle?.smokingAlcoholUse }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.lifestyle.smokingAlcoholUse" class="input" type="text">
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-8">
-          <div class="box support-resources">
-            <h2 class="subtitle">Support Resources</h2>
-            <div class="columns is-multiline">
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Support Groups:</strong> {{ patient.supportResources?.supportGroups }}
-                </div>
+      </div>
+      <div class="column is-8">
+        <div class="box support-resources">
+          <h2 class="subtitle">Support Resources</h2>
+          <div class="columns is-multiline">
+            <div class="column is-half">
+              <div class="content">
+                <strong>Support Groups:</strong>
+                <div *ngIf="!editMode">{{ patient.supportResources?.supportGroups }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.supportResources.supportGroups" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Educational Materials:</strong> {{ patient.supportResources?.educationalMaterials }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Educational Materials:</strong>
+                <div *ngIf="!editMode">{{ patient.supportResources?.educationalMaterials }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.supportResources.educationalMaterials" class="input" type="text">
               </div>
-              <div class="column is-half">
-                <div class="content">
-                  <strong>Care Plan:</strong> {{ patient.supportResources?.carePlan }}
-                </div>
+            </div>
+            <div class="column is-half">
+              <div class="content">
+                <strong>Care Plan:</strong>
+                <div *ngIf="!editMode">{{ patient.supportResources?.carePlan }}</div>
+                <input *ngIf="editMode" [(ngModel)]="patient.supportResources.carePlan" class="input" type="text">
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-8 has-text-centered">
-          <button class="button is-primary is-large" (click)="logout()">Sign Out</button>
-        </div>
+      </div>
+      <div class="column is-8 has-text-centered">
+        <button class="button is-primary is-large" *ngIf="!editMode" (click)="toggleEditMode()">Edit</button>
+        <button class="button is-success is-large" *ngIf="editMode" (click)="savePatientInfo()">Save</button>
+        <button class="button is-danger is-large" *ngIf="editMode" (click)="toggleEditMode()">Cancel</button>
+        <button class="button is-primary is-large" (click)="logout()">Sign Out</button>
       </div>
     </div>
   </div>
-  <div *ngIf="!patient" class="container">
-    <div class="notification is-info">Loading patient information...</div>
-  </div>
-  
+</div>
+<div *ngIf="!patient" class="container">
+  <div class="notification is-info">Loading patient information...</div>
+</div>
